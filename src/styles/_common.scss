@@ -1,0 +1,19 @@
+.form-row {
+    display: block;
+    margin-bottom: 1.2rem;
+    label {
+        display: block;
+    }
+}
+
+.edit-text {
+    border: 1px solid $dark;
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    &:focus, &:active {
+        border: 1px solid $blue;
+    }
+}

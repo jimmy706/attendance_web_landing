@@ -1,0 +1,60 @@
+.button {
+    padding: 10px 30px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    &--default {
+        background-color: $blue;
+        color: #fff;
+        border: 1px solid $blue;
+        &:hover,&:focus {
+            background-color: $dark-blue;
+            border-color: $dark-blue;
+        }
+    }
+    &.disabled {
+        opacity: .8;
+        pointer-events: none;
+    }
+    &__loading {
+        width: 20px;
+        height: 20px;
+        background-color: $white;
+        position: relative;
+        display: block;
+        margin: auto ;
+        border-radius: 50%;
+        animation: loading-spinner 2s linear infinite;
+        &::before {
+            background-color: $blue;
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: inherit;
+            width: 8px;
+            height: 8px;
+            background-color: $blue;
+        }
+    }
+
+    @keyframes loading-spinner {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
