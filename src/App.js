@@ -8,6 +8,7 @@ import IndexPage from "./views/Index";
 import "./styles/index.scss";
 import HomePage from "./views/Home";
 import dayjs from 'dayjs';
+import RegisterPage from "./views/Register";
 
 class App extends React.Component {
   componentDidMount() {
@@ -26,6 +27,9 @@ class App extends React.Component {
           </Route>
           <Route path="/home" >
             <HomePage />
+          </Route>
+          <Route path="/register">
+            <RegisterPage />
           </Route>
         </Switch>
       </Router>

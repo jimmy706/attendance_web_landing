@@ -1,8 +1,29 @@
 .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .form-col {
+       &:first-child{
+           margin-right: 10px;
+       }
+       &:last-child{
+           margin-left: 10px;
+       }
+    }
+}
+
+.form-col{
     display: block;
+    flex: 1;
     margin-bottom: 1.2rem;
     label {
         display: block;
+    }
+    .error-text {
+        color: $red;
+        font-size: .8rem;
+        margin-top: 0;
+        margin-bottom: 7px;
     }
 }
 
@@ -16,4 +37,13 @@
     &:focus, &:active {
         border: 1px solid $blue;
     }
+    &--error {
+        border-color: $red!important;
+    }
 }
+
+.link {
+    color: $blue;
+    text-decoration: underline;
+}
+

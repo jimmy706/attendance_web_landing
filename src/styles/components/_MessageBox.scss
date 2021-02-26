@@ -1,0 +1,15 @@
+.message-box {
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    &--error{
+        border: 2px solid $red;
+        color: $light-red;
+    }
+    &__title{
+        margin: 0;
+    }
+    &__message{
+        margin: 0;
+    }
+}

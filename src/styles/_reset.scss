@@ -22,3 +22,7 @@ a{
 button, select, input, textarea{
     outline: none;
 }
+
+textarea{
+    resize: vertical;
+}

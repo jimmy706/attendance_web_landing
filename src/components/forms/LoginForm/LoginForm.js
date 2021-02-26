@@ -5,9 +5,10 @@ import { ErrorMessages } from '../../../constants/messages';
 import { loginAPI } from '../../../APIs/auth';
 import { useHistory } from 'react-router-dom';
 import { getDay } from '../../../helpers/date-handle';
+import { Link } from 'react-router-dom';
 
 function LoginForm() {
-    const { handleSubmit, register } = useForm();
+    const { handleSubmit, register, errors } = useForm();
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
@@ -36,28 +37,29 @@ function LoginForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='form'
-            style={{
-                width: '100%',
-                maxWidth: '500px'
-            }}
+
         >
-            <h2 style={{ textAlign: 'center', marginBottom: '40px' }}>LOGIN</h2>
-            <div className='form-row'>
+            <div className='form-col'>
                 <label htmlFor='Username'>Username</label>
                 <input
                     ref={register({
                         required: ErrorMessages.USERNAME_REQUIRED
                     })}
-                    className='edit-text' name='username' placeholder="Password" />
+                    className={`edit-text ${errors.username ? 'edit-text--error' : ''}`} name='username' placeholder="Password" />
+                <p className='error-text'>{errors.username?.message}</p>
             </div>
-            <div className='form-row'>
+            <div className='form-col'>
                 <label htmlFor='password'>Password</label>
-                <input className='edit-text' name="password" placeholder="Password"
+                <input className={`edit-text ${errors.password ? 'edit-text--error' : ''}`} name="password" placeholder="Password"
                     ref={register({
                         required: ErrorMessages.PASSWORD_REQUIRED
                     })}
                     type='password' />
+                <p className='error-text'>{errors.password?.message}</p>
             </div>
+            <p>
+                Don't have account? Create<Link to="/register"><a className='link'> here.</a></Link>
+            </p>
             <CommonButton loading={loading} width='100%' type='submit'>Login</CommonButton>
         </form>
     )

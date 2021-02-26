@@ -8,3 +8,7 @@ export function loginAPI(username, password) {
 export function refreshTokenAPI(refreshToken) {
     return axios.post(`${API_URLS}api/token/refresh/`, { refresh: refreshToken })
 }
+
+export function createAccountAPI(user) {
+    return axios.post(`${API_URLS}attendances/create-account/`, user);
+}
