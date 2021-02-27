@@ -6,14 +6,18 @@ import { loginAPI } from '../../../APIs/auth';
 import { useHistory } from 'react-router-dom';
 import { getDay } from '../../../helpers/date-handle';
 import { Link } from 'react-router-dom';
+import { getErrorMessage } from '../../../helpers/string-handle';
+import MessageBox from '../../MessageBox/MessageBox';
 
 function LoginForm() {
     const { handleSubmit, register, errors } = useForm();
     const [loading, setLoading] = useState(false);
+    const [requestError, setRequestError] = useState("");
     const history = useHistory();
 
     async function onSubmit(data) {
         setLoading(true);
+        setRequestError('');
         try {
             const loginResult = await loginAPI(data.username, data.password);
             const { access, refresh } = loginResult.data;
@@ -28,10 +32,11 @@ function LoginForm() {
             history.push("/home");
         }
         catch (err) {
-            console.log(err);
+            setRequestError(getErrorMessage(err));
         }
         finally {
             setLoading(false);
+            history.push("/home");
         }
     }
 
@@ -39,6 +44,11 @@ function LoginForm() {
         <form onSubmit={handleSubmit(onSubmit)} className='form'
 
         >
+            {requestError && (
+                <div style={{marginBottom: "20px"}}>
+                    <MessageBox title="" message={requestError}/>
+                </div>
+            )}
             <div className='form-col'>
                 <label htmlFor='Username'>Username</label>
                 <input

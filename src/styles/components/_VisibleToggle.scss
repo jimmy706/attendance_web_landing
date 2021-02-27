@@ -1,0 +1,14 @@
+.visible-toggle {
+    position: relative;
+    z-index: 20;
+    &__toggler {
+        cursor: pointer;
+    }
+    &__content {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: auto;
+        display: block;
+    }
+}
