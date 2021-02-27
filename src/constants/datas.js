@@ -7,11 +7,11 @@ export const USERS = [
     last_name: "Dang",
   },
   {
-      username: "b1609381",
-      email: "b1609381@student.ctu.edu.vn",
-      id: "2",
-      first_name: "Cam",
-      last_name: "Chi"
+    username: "b1609381",
+    email: "b1609381@student.ctu.edu.vn",
+    id: "2",
+    first_name: "Cam",
+    last_name: "Chi"
   }
 ];
 
@@ -27,7 +27,7 @@ export const MEETING_LIST = [
     creator: {
       full_name: "Dung Dang",
       major: "Technology",
-      creator: USERS[0]
+      account: USERS[0]
     },
   },
   {
@@ -41,7 +41,7 @@ export const MEETING_LIST = [
     creator: {
       full_name: "Dung Dang",
       major: "Technology",
-      creator: USERS[0]
+      account: USERS[0]
     },
   },
   {
@@ -54,33 +54,33 @@ export const MEETING_LIST = [
     creator: {
       full_name: "Dung Dang",
       major: "Technology",
-      creator: USERS[0]
+      account: USERS[0]
     },
   },
   {
     id: "4",
     title: "Tortor condimentum lacinia",
-    description:"Dignissim enim sit amet venenatis urna cursus. Purus sit amet volutpat consequat mauris nunc congue nisi. Ut sem viverra aliquet eget sit amet tellus. ",
+    description: "Dignissim enim sit amet venenatis urna cursus. Purus sit amet volutpat consequat mauris nunc congue nisi. Ut sem viverra aliquet eget sit amet tellus. ",
     start_time: "14:00",
     end_time: "16:00",
     day: "2021/03/01",
     creator: {
       full_name: "Dung Dang",
       major: "Technology",
-      creator: USERS[0]
+      account: USERS[0]
     },
   },
   {
     id: "5",
     title: "Lorem Ipsum",
-    description:"Eu scelerisque felis imperdiet proin fermentum leo. Pharetra convallis posuere morbi leo urna. Consequat nisl vel pretium lectus quam. Arcu felis bibendum ut tristique et egestas. Nulla posuere sollicitudin aliquam ultrices sagittis orci. Sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt.",
+    description: "Eu scelerisque felis imperdiet proin fermentum leo. Pharetra convallis posuere morbi leo urna. Consequat nisl vel pretium lectus quam. Arcu felis bibendum ut tristique et egestas. Nulla posuere sollicitudin aliquam ultrices sagittis orci. Sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt.",
     start_time: "14:00",
     end_time: "16:30",
     day: "2021/03/06",
     creator: {
       full_name: "Dung Dang",
       major: "Technology",
-      creator: USERS[0]
+      account: USERS[0]
     },
   },
   {
@@ -94,7 +94,7 @@ export const MEETING_LIST = [
     creator: {
       full_name: "Cam Chi",
       major: "Technology",
-      creator: USERS[1]
+      account: USERS[1]
     },
   },
 ];

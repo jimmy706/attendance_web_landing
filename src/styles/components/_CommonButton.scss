@@ -13,6 +13,17 @@
             border-color: $dark-blue;
         }
     }
+    &--outlined {
+        background-color: transparent;
+        color: $dark;
+        font-weight: 500;
+        border: 1px solid #ddd;
+        &:hover {
+            background-color: $blue;
+            color: #fff;
+            border-color: $blue;
+        }
+    }
     &.disabled {
         opacity: .8;
         pointer-events: none;
