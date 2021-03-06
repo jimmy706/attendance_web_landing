@@ -1,1 +1,1 @@
-export const API_URLS = "http://localhost:8000/"
+export const API_URLS = "https://attendance-app-api.herokuapp.com/"

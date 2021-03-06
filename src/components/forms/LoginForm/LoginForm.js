@@ -3,17 +3,22 @@ import { useForm } from 'react-hook-form';
 import CommonButton from '../../buttons/CommonButton/CommonButton';
 import { ErrorMessages } from '../../../constants/messages';
 import { loginAPI } from '../../../APIs/auth';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getDay } from '../../../helpers/date-handle';
 import { Link } from 'react-router-dom';
 import { getErrorMessage } from '../../../helpers/string-handle';
 import MessageBox from '../../MessageBox/MessageBox';
+import { useDispatch } from 'react-redux';
+import { loginAndFetchProfile } from '../../../redux/actions/user.action';
 
 function LoginForm() {
     const { handleSubmit, register, errors } = useForm();
     const [loading, setLoading] = useState(false);
     const [requestError, setRequestError] = useState("");
     const history = useHistory();
+    const dispatch = useDispatch();
+    const { redir } = useParams();
+
 
     async function onSubmit(data) {
         setLoading(true);
@@ -25,18 +30,23 @@ function LoginForm() {
                 data: access,
                 expire: getDay(1)
             }));
+            dispatch(loginAndFetchProfile(access));
             localStorage.setItem('refresh', JSON.stringify({
                 data: refresh,
                 expire: getDay(2)
             }));
-            history.push("/home");
+            if (redir) {
+                history.push(redir);
+            }
+            else {
+                history.push("/home");
+            }
         }
         catch (err) {
             setRequestError(getErrorMessage(err));
         }
         finally {
             setLoading(false);
-            history.push("/home");
         }
     }
 
@@ -45,8 +55,8 @@ function LoginForm() {
 
         >
             {requestError && (
-                <div style={{marginBottom: "20px"}}>
-                    <MessageBox title="" message={requestError}/>
+                <div style={{ marginBottom: "20px" }}>
+                    <MessageBox title="" message={requestError} />
                 </div>
             )}
             <div className='form-col'>

@@ -16,3 +16,11 @@ export function getErrorMessage(error) {
 
     return "Unknow error!";
 }
+
+export function withAuthorization(token) {
+    return {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+}
