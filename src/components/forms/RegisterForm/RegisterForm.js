@@ -116,10 +116,7 @@ function RegisterForm() {
                 <input type='password' className={`edit-text ${classnames({ 'edit-text--error': errors.password })}`}
                     placeholder='Password' id='password' name='password' ref={register({
                         required: ErrorMessages.PASSWORD_REQUIRED,
-                        pattern: {
-                            value: PASSWORD_REGEX,
-                            message: ErrorMessages.WRONG_PASSWORD_FORMAT
-                        }
+
                     })} />
                 <p className='error-text'>{errors.password?.message}</p>
             </div>

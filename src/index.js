@@ -4,11 +4,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import store from './redux/store';
+import BarcodeModal from './components/modals/BarcodeModal/BarcodeModal';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      <BarcodeModal />
+
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

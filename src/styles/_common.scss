@@ -17,8 +17,18 @@
     flex: 1;
     margin-bottom: 1.2rem;
     label {
-        display: block;
+        display: inline-block;
         margin-bottom: 7px;
+        position: relative;
+        &.required {
+            &::after {
+                content: "*";
+                position: absolute;
+                right: -7px;
+                top: -2px;
+                color: $red;
+            }
+        }
     }
     .error-text {
         color: $red;
@@ -35,6 +45,8 @@
     padding: 5px 10px;
     border-radius: 5px;
     box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif!important;
+    font-weight: 500;
     &:focus, &:active {
         border: 1px solid $blue;
     }
@@ -48,3 +60,10 @@
     text-decoration: underline;
 }
 
+.modal {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

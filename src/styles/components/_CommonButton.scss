@@ -14,7 +14,7 @@
         }
     }
     &--outlined {
-        background-color: transparent;
+        background-color: #fff;
         color: $dark;
         font-weight: 500;
         border: 1px solid #ddd;
@@ -22,6 +22,15 @@
             background-color: $blue;
             color: #fff;
             border-color: $blue;
+        }
+        .button__loading {
+            background-color: $dark;
+            &::before {
+                background-color: #fff;
+            }
+            &::after {
+                background-color: #fff;
+            }
         }
     }
     &.disabled {

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CommonButton from '../../buttons/CommonButton/CommonButton';
 import dayjs from 'dayjs';
+import { joinMeeting, leaveMeeting } from '../../../APIs/meetings';
 function MeetingItem(props) {
+
     const {
         title,
         description,
@@ -10,8 +12,35 @@ function MeetingItem(props) {
         end_time,
         day,
         creator,
-        id
+        id,
+        is_registered
     } = props.data;
+    const [loading, setLoading] = useState(false);
+    const [isJoined, setIsJoined] = useState(is_registered);
+
+    async function handleJoinBtnClick(e) {
+        setLoading(true);
+        e.preventDefault();
+        const accessToken = JSON.parse(localStorage.getItem('access'));
+        const token = accessToken.data;
+        try {
+            if (!isJoined) {
+                const result = await joinMeeting(token, id);
+                console.log(result);
+            }
+            else {
+                const result = await leaveMeeting(token, id);
+                console.log(result);
+            }
+            setIsJoined(!isJoined);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className='meeting-item'>
@@ -41,8 +70,8 @@ function MeetingItem(props) {
                     </Link>
                 </h4>
                 <div>
-                    <CommonButton buttonType='outlined'>
-                        <ion-icon name="log-in-outline"></ion-icon> <span style={{ marginLeft: '5px' }}>Register</span>
+                    <CommonButton onClick={handleJoinBtnClick} loading={loading} buttonType={isJoined ? 'outlined' : 'default'}>
+                        {isJoined ? "Leave" : "Join"}
                     </CommonButton>
                 </div>
             </div>

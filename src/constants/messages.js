@@ -6,7 +6,12 @@ export const ErrorMessages = {
     LAST_NAME_REQUIRED: 'Last name is required',
     EMAIL_REQUIRED: 'Email is required',
     WRONG_EMAIL_FORMAT: "Wrong email format (example@gmail.com)",
-    USERNAME_WRONG_FORMAT: 'Wrong username format (example123)'
+    USERNAME_WRONG_FORMAT: 'Wrong username format (example123)',
+    TITLE_REQUIRED: 'Title is required',
+    START_TIME_REQUIRED: "Start time is required",
+    END_TIME_REQUIRED: "End time is required",
+    DAY_REQUIRED: "Day is required",
+
 }
 
 export const HintMessages = {

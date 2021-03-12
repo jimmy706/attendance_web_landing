@@ -9,9 +9,9 @@ function IndexPage() {
     const history = useHistory();
 
     useEffect(() => {
-        if (userState.isLogin) {
-            history.push(redir ? redir : '/home');
-        }
+        // if (userState.isLogin) {
+        //     history.push(redir ? redir : '/home');
+        // }
     }, []);
 
 

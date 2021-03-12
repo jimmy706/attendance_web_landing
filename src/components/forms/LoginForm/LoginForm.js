@@ -3,22 +3,21 @@ import { useForm } from 'react-hook-form';
 import CommonButton from '../../buttons/CommonButton/CommonButton';
 import { ErrorMessages } from '../../../constants/messages';
 import { loginAPI } from '../../../APIs/auth';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getDay } from '../../../helpers/date-handle';
 import { Link } from 'react-router-dom';
 import { getErrorMessage } from '../../../helpers/string-handle';
 import MessageBox from '../../MessageBox/MessageBox';
 import { useDispatch } from 'react-redux';
 import { loginAndFetchProfile } from '../../../redux/actions/user.action';
-
+import qs from 'query-string';
 function LoginForm() {
     const { handleSubmit, register, errors } = useForm();
     const [loading, setLoading] = useState(false);
     const [requestError, setRequestError] = useState("");
     const history = useHistory();
     const dispatch = useDispatch();
-    const { redir } = useParams();
-
+    const { redir } = (qs.parse(window.location.search))
 
     async function onSubmit(data) {
         setLoading(true);

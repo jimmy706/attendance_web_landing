@@ -3,6 +3,12 @@ import React from 'react';
 function CommonButton(props) {
     const { children, className, buttonType = 'default', type = 'button', width = 'auto', disabled = false, loading = false } = props;
 
+    function handleClick(e) {
+        if (props.onClick) {
+            props.onClick(e);
+        }
+    }
+
     return (
         <button
             style={{ width }}
@@ -10,6 +16,7 @@ function CommonButton(props) {
             className={`button 
             ${disabled || loading ? 'disabled' : ''} 
             button--${buttonType}`}
+            onClick={handleClick}
         >
             {
                 loading ? (

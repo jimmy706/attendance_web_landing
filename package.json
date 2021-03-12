@@ -12,9 +12,11 @@
     "jsbarcode": "^3.11.3",
     "node-sass": "^5.0.0",
     "notiflix": "^2.7.0",
+    "query-string": "^6.14.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.15.4",
+    "react-modal": "^3.12.1",
     "react-placeholder": "^4.1.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
@@ -22,6 +24,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.1",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
