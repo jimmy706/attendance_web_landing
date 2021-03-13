@@ -19,7 +19,7 @@ const links = [
 
 function Header(props) {
   return (
-    <header className="header">
+    <header className="header container1">
       <div className="header__content">
         <div>
           <ul className="header__link-list">
@@ -34,18 +34,18 @@ function Header(props) {
         </div>
 
         <div className="header__user-info-wrapper">
-            <Link to="/create-new"
-                style={{
-                    marginRight: '15px',
-                    cursor: 'pointer',
-                    fontSize: '1.4rem'
+          <Link to="/create-new"
+            style={{
+              marginRight: '15px',
+              cursor: 'pointer',
+              fontSize: '1.4rem'
 
-                }}
-                title="Create new meeting"
-            >
-                <ion-icon name="add-outline"></ion-icon>
-            </Link>
-            <HeaderUserInfo/>
+            }}
+            title="Create new meeting"
+          >
+            <ion-icon name="add-outline"></ion-icon>
+          </Link>
+          <HeaderUserInfo />
         </div>
       </div>
     </header>

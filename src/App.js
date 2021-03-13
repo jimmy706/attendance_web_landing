@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { loginAndFetchProfile } from "./redux/actions/user.action";
 import 'react-placeholder/lib/reactPlaceholder.css';
 import CreateMeeting from "./views/CreateMeeting";
+import MeetingDetailPage from "./views/MeetingDetail";
 
 function PrivateRoute({ component: Component, ...rest }) {
   let allow = false;
@@ -48,17 +49,18 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-
-          <PrivateRoute path="/home" component={HomePage} />
-
           <Route path="/register">
             <RegisterPage />
           </Route>
+          <PrivateRoute path="/home" component={HomePage} />
           <PrivateRoute path="/create-new" component={CreateMeeting} />
-
+          <PrivateRoute
+            path="/meeting/:meetingId" component={MeetingDetailPage}
+          />
           <Route path="/" >
             {userState.isLogin ? <Redirect to="/home" /> : <IndexPage />}
           </Route>
+
         </Switch>
       </Router>
     )

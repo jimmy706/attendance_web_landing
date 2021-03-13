@@ -17,3 +17,7 @@ export function joinMeeting(token, meetingId) {
 export function createNewMeeting(token, body) {
     return axios.post(`${API_URLS}attendances/create-attendance/`, body, withAuthorization(token));
 }
+
+export function getMeetingDetail(token, meetingId) {
+    return axios.get(`${API_URLS}attendances/${meetingId}/`, withAuthorization(token));
+}

@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import LoginForm from '../components/forms/LoginForm/LoginForm';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import qs from 'query-string';
 
 function IndexPage() {
     const userState = useSelector(state => state.userState);
-    const { redir } = useParams();
+    const { redir } = (qs.parse(window.location.search))
     const history = useHistory();
 
     useEffect(() => {
-        // if (userState.isLogin) {
-        //     history.push(redir ? redir : '/home');
-        // }
+        if (userState.isLogin) {
+            history.push(redir ? redir : '/home');
+        }
     }, []);
 
 

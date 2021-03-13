@@ -16,6 +16,10 @@ $white: #fff;
 $red: #F73131;
 $light-red: #EF5350;
 
+// spacing
+$p1: 4rem;
+
+
 // mixin
 @mixin minWidth($breakpoint) {
     @media screen and (min-width: $breakpoint) {

@@ -37,7 +37,7 @@ function BarcodeModal() {
                 <div className='barcode-modal__barcode-container'>
                     <svg style={{ display: loading ? 'none' : 'block' }} id='barcode-display'></svg>
                     {
-                        loading ? (<ReactPlaceholder type='rect' style={{ width: '300px', height: '100px' }} />) : null
+                        loading ? (<ReactPlaceholder showLoadingAnimation={true} type='rect' style={{ width: '300px', height: '100px' }} />) : null
                     }
                 </div>
 
