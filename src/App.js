@@ -6,13 +6,15 @@ import {
   Redirect
 } from "react-router-dom";
 import IndexPage from "./views/Index";
-import "./styles/index.scss";
 import HomePage from "./views/Home";
 import dayjs from 'dayjs';
 import RegisterPage from "./views/Register";
 import { connect } from 'react-redux';
 import { loginAndFetchProfile } from "./redux/actions/user.action";
 import 'react-placeholder/lib/reactPlaceholder.css';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./styles/index.scss";
+
 import CreateMeeting from "./views/CreateMeeting";
 import MeetingDetailPage from "./views/MeetingDetail";
 

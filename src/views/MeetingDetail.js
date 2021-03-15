@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import CommonButton from '../components/buttons/CommonButton/CommonButton';
 import MeetingDetailOverview from '../components/MeetingDetail/MeetingDetailOverview';
 import Container from '../components/Container/Container';
+import MeetingDetailMembers from '../components/MeetingDetail/MeetingDetailMembers';
+import MemberLoadingPlaceHolder from '../components/placeholders/MemberLoadingPlaceHolder';
 
 const TabContainer = styled.div`
     margin-top: 20px;
@@ -55,7 +57,6 @@ function MeetingDetailPage() {
         try {
             const result = await getMeetingDetail(token, meetingId);
             setMeetingDetail(result.data);
-            console.log(result.data)
         }
         catch (err) {
             console.log(err);
@@ -84,6 +85,8 @@ function MeetingDetailPage() {
         switch (activeTab) {
             default:
                 return !loading && meetingDetail ? (<MeetingDetailOverview meetingDetail={meetingDetail} />) : <ReactPlaceholder showLoadingAnimation={true} type='text' rows={6} />
+            case ACTIVE_TAB_VALUES.MEMBERS:
+                return <MeetingDetailMembers meeting={meetingDetail} />
         }
     }
 
@@ -122,13 +125,8 @@ function MeetingDetailPage() {
                         )
                             : (
                                 <div className='container1'>
-                                    <ReactPlaceholder showLoadingAnimation={true} type='textRow' style={{ width: 100 }} />
-                                    <div style={{ marginTop: '10px', display: 'flex' }}>
-                                        <ReactPlaceholder type='round' showLoadingAnimation={true} style={{ width: 40, height: 40 }} />
-                                        <div style={{ marginLeft: '5px' }}>
-                                            <ReactPlaceholder showLoadingAnimation={true} type='textRow' style={{ width: 100 }} />
-                                        </div>
-                                    </div>
+                                    <ReactPlaceholder type='textRow' style={{ width: 200, marginBottom: '10px' }} />
+                                    <MemberLoadingPlaceHolder />
                                 </div>
                             )
                     }

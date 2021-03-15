@@ -9,9 +9,13 @@ import { createNewMeeting } from '../../../APIs/meetings';
 import { getErrorMessage } from '../../../helpers/string-handle';
 import MessageBox from '../../MessageBox/MessageBox';
 import { useHistory } from 'react-router';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+
 const Form = styled.form`
     width: 60%;
-    max-width: 450px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box
@@ -23,14 +27,21 @@ function CreateMeetingForm() {
     const [errorMessage, setErrorMessage] = useState('');
     const currentDatetime = new Date();
     const history = useHistory();
+    const [editorState, setEditorState] = useState(
+        () => EditorState.createEmpty(),
+    );
+
     async function onSubmit(data) {
         setLoading(true);
+        const description = (draftToHtml(convertToRaw(editorState.getCurrentContent())));
+        const body = { ...data, description }
         const accessToken = JSON.parse(localStorage.getItem('access'));
         const token = accessToken.data;
         try {
-            const result = await createNewMeeting(token, data);
+            const result = await createNewMeeting(token, body);
             const newMeeting = result.data;
-            history.push(`/meeting/${newMeeting}`)
+            console.log(newMeeting)
+            history.push(`/meeting/${newMeeting.id}`)
         }
         catch (err) {
             setErrorMessage(getErrorMessage(err));
@@ -70,7 +81,7 @@ function CreateMeetingForm() {
                     <input
                         name='start_time'
                         type='time'
-                        defaultValue={`${dayjs(currentDatetime).format("hh:mm")}`}
+                        defaultValue={`${dayjs(currentDatetime).format("HH:mm")}`}
                         className={`edit-text ${classnames({ 'edit-text--error': errors.start_time })}`}
                         id='start_time'
                         ref={register({
@@ -84,7 +95,7 @@ function CreateMeetingForm() {
                     <input
                         name='end_time'
                         type='time'
-                        defaultValue={`${dayjs(currentDatetime).add(30, 'm').format("hh:mm")}`}
+                        defaultValue={`${dayjs(currentDatetime).add(30, 'm').format("HH:mm")}`}
                         className={`edit-text ${classnames({ 'edit-text--error': errors.end_time })}`}
                         id='end_time'
                         ref={register({
@@ -110,19 +121,14 @@ function CreateMeetingForm() {
                 <label htmlFor='desc'>
                     Description
                 </label>
-                <textarea
-                    style={{
-                        width: '100%',
-                        height: '100px'
-                    }}
-                    placeholder="Write meeting's description"
-                    id='desc'
+                <Editor
+                    editorClassName='edit-text edit-text--wysiiwyg'
+                    placeholder='Enter meeting description'
                     name='description'
-                    ref={register()}
-                    className='edit-text'
-                >
-
-                </textarea>
+                    EditorState={editorState}
+                    onEditorStateChange={setEditorState}
+                    stripPastedStyles={true}
+                />
             </div>
 
             <CommonButton

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LoginForm from '../components/forms/LoginForm/LoginForm';
 import { useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import qs from 'query-string';
 
 function IndexPage() {
