@@ -4,11 +4,13 @@
     border-radius: 5px;
     text-transform: uppercase;
     text-align: center;
+    line-height: 1;
     &--default {
         background-color: $blue;
         color: #fff;
         border: 1px solid $blue;
-        &:hover,&:focus {
+        &:hover,
+        &:focus {
             background-color: $dark-blue;
             border-color: $dark-blue;
         }
@@ -34,7 +36,7 @@
         }
     }
     &.disabled {
-        opacity: .8;
+        opacity: 0.8;
         pointer-events: none;
     }
     &__loading {
@@ -43,12 +45,12 @@
         background-color: $white;
         position: relative;
         display: block;
-        margin: auto ;
+        margin: auto;
         border-radius: 50%;
         animation: loading-spinner 2s linear infinite;
         &::before {
             background-color: $blue;
-            content: '';
+            content: "";
             position: absolute;
             left: 50%;
             top: 50%;
@@ -58,7 +60,7 @@
             border-radius: 50%;
         }
         &::after {
-            content: '';
+            content: "";
             position: absolute;
             left: 0;
             top: 0;

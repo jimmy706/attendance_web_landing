@@ -54,6 +54,10 @@
     &--error {
         border-color: $red !important;
     }
+    &--wysiiwyg {
+        min-height: 200px;
+        padding: 0 10px;
+    }
 }
 
 .link {

@@ -20,6 +20,7 @@
         align-items: center;
         padding: $meeting-padding;
         background-color: rgba(238, 238, 238, 0.432);
+        line-height: 1;
         a {
             display: block;
         }
@@ -37,32 +38,32 @@
         text-overflow: ellipsis;
     }
     &__desc {
-         overflow: hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2; /* number of lines to show */
         -webkit-box-orient: vertical;
     }
     &__body {
-        padding: 5px $meeting-padding ;
+        padding: 5px $meeting-padding;
     }
     .button {
         padding: 7px 10px;
         line-height: 1;
-        font-size: .8rem;
+        font-size: 0.8rem;
         display: flex;
         align-items: center;
         text-transform: capitalize;
-        ion-icon  {
+        ion-icon {
             font-size: 1.2rem;
         }
     }
     &__time {
         display: flex;
         align-items: center;
-        font-size: .8rem;
+        font-size: 0.8rem;
         color: $dark;
-         ion-icon  {
+        ion-icon {
             font-size: 1.2rem;
             margin-right: 5px;
             color: $black;

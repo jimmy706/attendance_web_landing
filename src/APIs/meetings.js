@@ -1,9 +1,9 @@
 import { API_URLS } from '../config/namespaces';
 import axios from 'axios';
-import { withAuthorization } from '../helpers/string-handle';
+import { getQueryStringFromObject, withAuthorization } from '../helpers/string-handle';
 
-export function listMeetingsAPI(token) {
-    return axios.get(`${API_URLS}attendances/list/`, withAuthorization(token))
+export function listMeetingsAPI(token, page = 1, size = 10) {
+    return axios.get(`${API_URLS}attendances/list/?${getQueryStringFromObject({ page, size })}`, withAuthorization(token))
 }
 
 export function leaveMeeting(token, meetingId) {
@@ -20,4 +20,8 @@ export function createNewMeeting(token, body) {
 
 export function getMeetingDetail(token, meetingId) {
     return axios.get(`${API_URLS}attendances/${meetingId}/`, withAuthorization(token));
+}
+
+export function getMeetingMembers(meetingId) {
+    return axios.get(`${API_URLS}attendances/${meetingId}/members/`);
 }

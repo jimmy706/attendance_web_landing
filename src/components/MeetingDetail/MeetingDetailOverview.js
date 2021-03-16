@@ -46,6 +46,7 @@ const DescriptionContainer = styled.div`
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
+    line-height: 1.4;
 `
 
 function MeetingDetailOverview(props) {

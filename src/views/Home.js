@@ -12,7 +12,6 @@ function HomePage() {
     const [loading, setLoading] = useState(false);
     const [totalPage, setTotalPage] = useState(1);
 
-
     useEffect(() => {
         fetchMeeting();
     }, []);
@@ -22,7 +21,7 @@ function HomePage() {
         if (accessToken) {
             setLoading(true);
             try {
-                const result = await listMeetingsAPI(accessToken.data);
+                const result = await listMeetingsAPI(accessToken.data, 1, 10);
                 setMeetingList(result.data.results);
                 setTotalPage(result.data.num_pages);
             }
@@ -35,6 +34,23 @@ function HomePage() {
         }
 
     }
+
+    async function handleLoadMore() {
+        const accessToken = JSON.parse(localStorage.getItem('access'));
+        setLoading(true);
+        try {
+            const result = await listMeetingsAPI(accessToken.data, page + 1, 10);
+            setMeetingList([...mettingList, ...result.data.results]);
+            setPage(page + 1);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
 
     function renderPlaceholder() {
         const results = [];
@@ -53,20 +69,25 @@ function HomePage() {
             <Header />
             <Container>
                 <ul className='attendance-list'>
+
+                    {
+                        mettingList.map(item => (
+                            <li key={item.id}>
+                                <MeetingItem data={item} />
+                            </li>
+                        ))
+                    }
+
                     {
                         loading ? (
                             renderPlaceholder()
                         )
-                            : mettingList.map(item => (
-                                <li key={item.id}>
-                                    <MeetingItem data={item} />
-                                </li>
-                            ))
+                            : null
                     }
                     {
                         totalPage > page ? (
                             <li>
-                                <CommonButton width='100%' >Load more</CommonButton>
+                                <CommonButton onClick={handleLoadMore} width='100%' >Load more</CommonButton>
                             </li>
                         )
                             : null

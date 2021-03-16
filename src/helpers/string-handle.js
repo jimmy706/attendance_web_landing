@@ -24,3 +24,17 @@ export function withAuthorization(token) {
         }
     }
 }
+
+export function getQueryStringFromObject(query) {
+    if (query) {
+        const result = [];
+        for (let key in query) {
+            result.push(`${key}=${query[key]}`)
+        }
+        return result.join("&");
+    }
+    else {
+        return ""
+    }
+
+}
