@@ -51,6 +51,7 @@ const DescriptionContainer = styled.div`
 
 function MeetingDetailOverview(props) {
     const { start_time, end_time, day, attendance_key, description } = props.meetingDetail;
+
     function handleCopyToClipboard() {
         const copyText = document.getElementById('share-meeting-key');
         copyText.select();

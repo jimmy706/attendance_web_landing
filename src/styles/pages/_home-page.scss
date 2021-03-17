@@ -1,5 +1,16 @@
 .home-page {
+    overflow: hidden;
     .attendance-list {
         margin: 60px 0;
+    }
+    &__content {
+        display: flex;
+        overflow-y: hidden;
+        height: calc(100vh - 70px);
+    }
+    &__meetings {
+        flex: 1;
+        height: 100%;
+        overflow: scroll;
     }
 }

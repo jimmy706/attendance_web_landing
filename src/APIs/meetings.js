@@ -25,3 +25,11 @@ export function getMeetingDetail(token, meetingId) {
 export function getMeetingMembers(meetingId) {
     return axios.get(`${API_URLS}attendances/${meetingId}/members/`);
 }
+
+export function listMyMeetingsAPI(token) {
+    return axios.get(`${API_URLS}attendances/my-attendances/`, withAuthorization(token));
+}
+
+export function listMyRegisteredMeeting(token) {
+    return axios.get(`${API_URLS}attendances/my-registered-attendances/`, withAuthorization(token));
+}

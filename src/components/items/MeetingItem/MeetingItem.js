@@ -82,7 +82,7 @@ function MeetingItem(props) {
                         {`${dayjs(day).format("ddd/MM/YYYY")}, ${start_time} - ${end_time}`}
                     </span>
                 </div>
-                <p className='meeting-item__desc' dangerouslySetInnerHTML={{ __html: description }} />
+                <div className='meeting-item__desc' dangerouslySetInnerHTML={{ __html: description }} />
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header/Header';
 import { useParams } from 'react-router-dom';
-import { getMeetingDetail } from '../APIs/meetings';
+import { getMeetingDetail, joinMeeting, leaveMeeting } from '../APIs/meetings';
 import Tabs from '../components/Tabs/Tabs';
 import styled from 'styled-components';
 import ReactPlaceholder from 'react-placeholder/lib';
@@ -42,6 +42,7 @@ const ACTIVE_TAB_VALUES = {
 function MeetingDetailPage() {
     const { meetingId } = useParams();
     const [loading, setLoading] = useState(true);
+    const [joinLoading, setJoinLoading] = useState(false);
     const [meetingDetail, setMeetingDetail] = useState(null);
     const [activeTab, setActiveTab] = useState(ACTIVE_TAB_VALUES.OVERVIEW);
 
@@ -90,6 +91,29 @@ function MeetingDetailPage() {
         }
     }
 
+
+    async function handleJoinBtnClick(e) {
+        setJoinLoading(true);
+        e.preventDefault();
+        const accessToken = JSON.parse(localStorage.getItem('access'));
+        const token = accessToken.data;
+        try {
+            if (!meetingDetail.is_registered) {
+                const result = await joinMeeting(token, meetingDetail.id);
+            }
+            else {
+                const result = await leaveMeeting(token, meetingDetail.id);
+            }
+            setMeetingDetail({ ...meetingDetail, is_registered: !meetingDetail.is_registered });
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            setJoinLoading(false);
+        }
+    }
+
     return (
         <div className='meeting-detail'>
             <Header />
@@ -117,6 +141,8 @@ function MeetingDetailPage() {
                                     </div>
                                     <CommonButton
                                         buttonType={meetingDetail.is_registered ? 'outlined' : 'default'}
+                                        loading={joinLoading}
+                                        onClick={handleJoinBtnClick}
                                     >
                                         {meetingDetail.is_registered ? 'Leave' : 'Join'}
                                     </CommonButton>

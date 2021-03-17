@@ -5,6 +5,8 @@ import Header from '../components/Header/Header';
 import MeetingItem from '../components/items/MeetingItem/MeetingItem';
 import ReactPlaceholder from 'react-placeholder';
 import CommonButton from '../components/buttons/CommonButton/CommonButton';
+import MyMeetingSidebar from '../components/MyMeetingSidebar/MyMeetingSidebar';
+
 
 function HomePage() {
     const [mettingList, setMeetingList] = useState([]);
@@ -67,33 +69,44 @@ function HomePage() {
     return (
         <div className='home-page'>
             <Header />
-            <Container>
-                <ul className='attendance-list'>
 
-                    {
-                        mettingList.map(item => (
-                            <li key={item.id}>
-                                <MeetingItem data={item} />
-                            </li>
-                        ))
-                    }
+            <div className='home-page__content'>
+                <div>
+                    <MyMeetingSidebar />
+                </div>
+                <div className='home-page__meetings'>
+                    <Container>
+                        <ul className='attendance-list'>
 
-                    {
-                        loading ? (
-                            renderPlaceholder()
-                        )
-                            : null
-                    }
-                    {
-                        totalPage > page ? (
-                            <li>
-                                <CommonButton onClick={handleLoadMore} width='100%' >Load more</CommonButton>
-                            </li>
-                        )
-                            : null
-                    }
-                </ul>
-            </Container>
+                            {
+                                mettingList.map(item => (
+                                    <li key={item.id}>
+                                        <MeetingItem data={item} />
+                                    </li>
+                                ))
+                            }
+
+                            {
+                                loading ? (
+                                    renderPlaceholder()
+                                )
+                                    : null
+                            }
+                            {
+                                totalPage > page ? (
+                                    <li>
+                                        <CommonButton loading={loading} onClick={handleLoadMore} width='100%' >Load more</CommonButton>
+                                    </li>
+                                )
+                                    : null
+                            }
+                        </ul>
+                    </Container>
+                </div>
+            </div>
+            <div>
+
+            </div>
         </div>
     )
 }

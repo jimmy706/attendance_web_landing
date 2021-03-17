@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import HeaderUserInfo from "./HeaderUserInfo";
-
+import { useDispatch } from 'react-redux';
+import { openBarcodeModalAction } from "../../redux/actions/barcodeModal.action";
 const links = [
   {
     name: "Home",
@@ -12,12 +13,19 @@ const links = [
     path: "/home",
   },
   {
-    name: "Contact",
-    path: "/home",
+    name: "Registered",
+    path: "/reigstered-meetings",
   },
 ];
 
 function Header(props) {
+  const dispatch = useDispatch();
+
+  function handleGetBarcode(e) {
+    e.preventDefault();
+    dispatch(openBarcodeModalAction());
+  }
+
   return (
     <header className="header container1">
       <div className="header__content">
@@ -35,16 +43,18 @@ function Header(props) {
 
         <div className="header__user-info-wrapper">
           <Link to="/create-new"
-            style={{
-              marginRight: '15px',
-              cursor: 'pointer',
-              fontSize: '1.4rem'
-
-            }}
             title="Create new meeting"
+            className='header__icon'
           >
             <ion-icon name="add-outline"></ion-icon>
           </Link>
+          <a href="#"
+            className='header__icon'
+            title="Get my barcode"
+            onClick={handleGetBarcode}
+          >
+            <ion-icon name="qr-code-outline"></ion-icon>
+          </a>
           <HeaderUserInfo />
         </div>
       </div>
