@@ -11,6 +11,7 @@ import MeetingDetailOverview from '../components/MeetingDetail/MeetingDetailOver
 import Container from '../components/Container/Container';
 import MeetingDetailMembers from '../components/MeetingDetail/MeetingDetailMembers';
 import MemberLoadingPlaceHolder from '../components/placeholders/MemberLoadingPlaceHolder';
+import MeetingDetailSetting from '../components/MeetingDetail/MeetingDetailSettings';
 
 const TabContainer = styled.div`
     margin-top: 20px;
@@ -88,6 +89,8 @@ function MeetingDetailPage() {
                 return !loading && meetingDetail ? (<MeetingDetailOverview meetingDetail={meetingDetail} />) : <ReactPlaceholder showLoadingAnimation={true} type='text' rows={6} />
             case ACTIVE_TAB_VALUES.MEMBERS:
                 return <MeetingDetailMembers meeting={meetingDetail} />
+            case ACTIVE_TAB_VALUES.SETTINGS:
+                return <MeetingDetailSetting meeting={meetingDetail} />
         }
     }
 

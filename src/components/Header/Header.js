@@ -14,7 +14,7 @@ const links = [
   },
   {
     name: "Registered",
-    path: "/reigstered-meetings",
+    path: "/registered-meetings",
   },
 ];
 
