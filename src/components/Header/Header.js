@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import HeaderUserInfo from "./HeaderUserInfo";
 import { useDispatch } from 'react-redux';
 import { openBarcodeModalAction } from "../../redux/actions/barcodeModal.action";
+import HeaderSearch from "./HeaderSearch";
+import styled from 'styled-components';
 const links = [
   {
     name: "Home",
@@ -18,6 +20,11 @@ const links = [
   },
 ];
 
+const HeaderLeftWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 function Header(props) {
   const dispatch = useDispatch();
 
@@ -29,7 +36,7 @@ function Header(props) {
   return (
     <header className="header container1">
       <div className="header__content">
-        <div>
+        <HeaderLeftWrapper>
           <ul className="header__link-list">
             {links.map((link, i) => (
               <li key={i}>
@@ -39,7 +46,9 @@ function Header(props) {
               </li>
             ))}
           </ul>
-        </div>
+
+          <HeaderSearch />
+        </HeaderLeftWrapper>
 
         <div className="header__user-info-wrapper">
           <Link to="/create-new"

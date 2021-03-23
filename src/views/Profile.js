@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Container from "../components/Container/Container";
 import CommonButton from "../components/buttons/CommonButton/CommonButton";
+import { getProfile } from "../APIs/meetings";
 
 const ProfilePageContent = styled.div`
   margin-top: 60px;
@@ -60,31 +61,49 @@ const ProfileInfoWrapper = styled.div`
 `;
 
 function ProfilePage() {
-  useEffect(() => {}, []);
+  const { userId } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    getProfile(userId)
+      .then(res => {
+        setUserProfile(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+
+  }, []);
 
   return (
     <div className="profile-page">
       <Header />
       <ProfilePageContent>
         <Container>
-          <ProfileWrapper>
-            <Background>
-              <UpdateProfileButtonWrapper>
-                <CommonButton buttonType="outline">Update profile</CommonButton>
-              </UpdateProfileButtonWrapper>
-              <Avatar
-                src={`https://ui-avatars.com/api/?name=Dung Dang&background=0D8ABC&color=fff`}
-              />
-            </Background>
+          {
+            userProfile !== null && (
+              <ProfileWrapper>
+                <Background>
+                  {/* <UpdateProfileButtonWrapper>
+                    <CommonButton buttonType="outline">Update profile</CommonButton>
+                  </UpdateProfileButtonWrapper> */}
+                  <Avatar
+                    src={`https://ui-avatars.com/api/?name=Dung Dang&background=0D8ABC&color=fff`}
+                  />
+                </Background>
 
-            <ProfileInfoWrapper>
-              <h2 className='username'>B1709272</h2>
-              <p className='full_name'>Dang Quoc Dung</p>
-              <div className='description'>
-              Etiam dignissim diam quis enim lobortis scelerisque. Nunc mattis enim ut tellus elementum sagittis. Elit pellentesque habitant morbi tristique senectus et netus et. Cras ornare arcu dui vivamus arcu felis. Ipsum dolor sit amet consectetur. Leo urna molestie at elementum eu. Ut lectus arcu bibendum at varius vel. Amet consectetur adipiscing elit duis tristique.
-              </div>
-            </ProfileInfoWrapper>
-          </ProfileWrapper>
+                <ProfileInfoWrapper>
+                  <h2 className='username'>{userProfile.account.username}</h2>
+                  <p className='full_name'>{userProfile.full_name}</p>
+                  <div className='description' dangerouslySetInnerHTML={{ __html: userProfile.description }} />
+                </ProfileInfoWrapper>
+              </ProfileWrapper>
+            )
+          }
         </Container>
       </ProfilePageContent>
     </div>

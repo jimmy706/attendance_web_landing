@@ -45,3 +45,11 @@ export function updateMeeting(token, meetingId, body) {
 export function deleteMeeting(token, meetingId) {
     return axios.delete(`${API_URLS}attendances/delete/${meetingId}/`, withAuthorization(token));
 }
+
+export function searchMeeting(search) {
+    return axios.get(`${API_URLS}attendances/search-attendances/?search=${search}`)
+}
+
+export function getProfile(user_id) {
+    return axios.get(`${API_URLS}attendances/user/${user_id}/`);
+}

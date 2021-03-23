@@ -46,12 +46,12 @@ function MeetingItem(props) {
         <div className='meeting-item'>
             <div className='meeting-item__creator'>
                 <Link
-                    to={`/user/${creator.account.username}`}
+                    to={`/user/${creator.account.id}`}
                 >
                     <img className='avatar' src={`https://ui-avatars.com/api/?name=${creator.full_name}&background=0D8ABC&color=fff`} />
                 </Link>
                 <div>
-                    <Link to={`/user/${creator.account.username}`}>
+                    <Link to={`/user/${creator.account.id}`}>
                         {creator.account.username}
                     </Link>
                     <small>
