@@ -133,7 +133,7 @@ function UpdateMeetingForm(props) {
                 type='submit'
                 loading={loading}
             >
-                Create meeting
+                Update meeting
             </CommonButton>
         </Form>
     )

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ErrorMessages, HintMessages } from '../../../constants/messages';
+import { ErrorMessages } from '../../../constants/messages';
 import classnames from 'classnames';
 import CommonButton from '../../buttons/CommonButton/CommonButton';
-import { EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX } from '../../../constants/regex';
+import { EMAIL_REGEX, USERNAME_REGEX } from '../../../constants/regex';
 import MAJORS from '../../../constants/majors';
 import { createAccountAPI } from '../../../APIs/auth';
 import { getErrorMessage } from '../../../helpers/string-handle';

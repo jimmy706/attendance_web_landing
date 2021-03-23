@@ -5,20 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { openBarcodeModalAction } from "../../redux/actions/barcodeModal.action";
 import ReactPlaceholder from 'react-placeholder';
 
-const links = [
-  {
-    name: "My profile",
-    path: "/my-profile",
-  },
-  {
-    name: "Create new meeting",
-    path: "/create-new",
-  },
-  {
-    name: "My meetings",
-    path: "/my-meeting",
-  },
-];
+
 
 function HeaderUserInfo(props) {
   const dispatch = useDispatch();
@@ -35,6 +22,17 @@ function HeaderUserInfo(props) {
     e.preventDefault();
     dispatch(openBarcodeModalAction())
   }
+
+  const links = [
+    {
+      name: "My profile",
+      path: `/user/${userState.profile?.account?.id}`,
+    },
+    {
+      name: "Create new meeting",
+      path: "/create-new",
+    },
+  ];
 
   return (
     <div className="header__user-info">

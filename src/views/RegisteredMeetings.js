@@ -49,7 +49,7 @@ function RegisteredMeetingPage() {
         return (
             meetings.map(item => (
                 <li key={item.id}>
-                    <MeetingItem data={{ ...item, is_registered: true }} />
+                    <MeetingItem data={{ ...item, is_registered: true, id: item.attendance_id }} />
                 </li>
             ))
         )
