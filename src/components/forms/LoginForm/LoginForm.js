@@ -64,7 +64,7 @@ function LoginForm() {
                     ref={register({
                         required: ErrorMessages.USERNAME_REQUIRED
                     })}
-                    className={`edit-text ${errors.username ? 'edit-text--error' : ''}`} name='username' placeholder="Password" />
+                    className={`edit-text ${errors.username ? 'edit-text--error' : ''}`} name='username' placeholder="Username" />
                 <p className='error-text'>{errors.username?.message}</p>
             </div>
             <div className='form-col'>

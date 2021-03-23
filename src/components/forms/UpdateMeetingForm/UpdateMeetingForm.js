@@ -5,14 +5,12 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessages } from '../../../constants/messages';
 import dayjs from 'dayjs';
 import classnames from 'classnames';
-import { createNewMeeting } from '../../../APIs/meetings';
 import { getErrorMessage } from '../../../helpers/string-handle';
 import MessageBox from '../../MessageBox/MessageBox';
-import { useHistory } from 'react-router';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-
+import { updateMeeting } from '../../../APIs/meetings';
 const Form = styled.form`
     width: 60%;
     max-width: 600px;
@@ -21,15 +19,13 @@ const Form = styled.form`
     box-sizing: border-box
 `
 
-function CreateMeetingForm() {
+function UpdateMeetingForm(props) {
     const { handleSubmit, errors, register } = useForm();
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const currentDatetime = new Date();
-    const history = useHistory();
-    const [editorState, setEditorState] = useState(
-        () => EditorState.createEmpty(),
-    );
+    const [editorState, setEditorState] = useState(EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(props.meeting.description))));
+
     async function onSubmit(data) {
         setLoading(true);
         const description = (draftToHtml(convertToRaw(editorState.getCurrentContent())));
@@ -37,10 +33,8 @@ function CreateMeetingForm() {
         const accessToken = JSON.parse(localStorage.getItem('access'));
         const token = accessToken.data;
         try {
-            const result = await createNewMeeting(token, body);
-            const newMeeting = result.data;
-            console.log(newMeeting)
-            history.push(`/meeting/${newMeeting.id}`)
+            const result = await updateMeeting(token, props.meeting.id, body);
+            window.location.reload();
         }
         catch (err) {
             setErrorMessage(getErrorMessage(err));
@@ -71,6 +65,7 @@ function CreateMeetingForm() {
                     name='title'
                     placeholder="Enter meeting title"
                     id='title'
+                    defaultValue={props.meeting.title}
                 />
                 <p className='error-text'>{errors.title?.message}</p>
             </div>
@@ -86,6 +81,7 @@ function CreateMeetingForm() {
                         ref={register({
                             required: ErrorMessages.START_TIME_REQUIRED
                         })}
+                        defaultValue={props.meeting.start_time}
                     />
                     <p className='error-text'>{errors.start_time?.message}</p>
                 </div>
@@ -100,6 +96,7 @@ function CreateMeetingForm() {
                         ref={register({
                             required: ErrorMessages.END_TIME_REQUIRED
                         })}
+                        defaultValue={props.meeting.end_time}
                     />
                     <p className='error-text'>{errors.end_time?.message}</p>
                 </div>
@@ -112,7 +109,7 @@ function CreateMeetingForm() {
                     name='day'
                     id='day'
                     type='date'
-                    defaultValue={dayjs(currentDatetime).format("YYYY-MM-DD")}
+                    defaultValue={props.meeting.day}
                 />
             </div>
 
@@ -127,6 +124,7 @@ function CreateMeetingForm() {
                     EditorState={editorState}
                     onEditorStateChange={setEditorState}
                     stripPastedStyles={true}
+                    defaultEditorState={editorState}
                 />
             </div>
 
@@ -141,4 +139,4 @@ function CreateMeetingForm() {
     )
 }
 
-export default CreateMeetingForm;
+export default UpdateMeetingForm;

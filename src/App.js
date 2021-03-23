@@ -17,6 +17,7 @@ import "./styles/index.scss";
 
 import CreateMeeting from "./views/CreateMeeting";
 import MeetingDetailPage from "./views/MeetingDetail";
+import RegisteredMeetingPage from "./views/RegisteredMeetings";
 
 function PrivateRoute({ component: Component, ...rest }) {
   let allow = false;
@@ -58,6 +59,9 @@ class App extends React.Component {
           <PrivateRoute path="/create-new" component={CreateMeeting} />
           <PrivateRoute
             path="/meeting/:meetingId" component={MeetingDetailPage}
+          />
+          <PrivateRoute
+            path="/registered-meetings" component={RegisteredMeetingPage}
           />
           <Route path="/" >
             {userState.isLogin ? <Redirect to="/home" /> : <IndexPage />}

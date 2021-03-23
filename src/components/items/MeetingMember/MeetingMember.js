@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import IconButton from '../../buttons/IconButton/IconButton';
 import VisibleToggle from '../../VisibleToggle/VisibleToggle';
@@ -57,19 +57,25 @@ const MemberMenuItem = styled.li`
     &:hover {
         background-color: #eee;
     }
+`;
+
+const CheckboxJoined = styled.input`
+    display: block;
+    margin-right: 15px;
 `
 
 function MeetingMember(props) {
-    const { enroller } = props.data;
+    const { enroller, joined } = props.data;
+
+    async function handleRemoveMember() {
+
+    }
 
     function renderHiddenMenu() {
         return (
             <MemberMenu>
                 <MemberMenuItem>
                     Remove from meeting
-            </MemberMenuItem>
-                <MemberMenuItem>
-                    Attend to meeting
                 </MemberMenuItem>
             </MemberMenu>
         )
@@ -77,6 +83,7 @@ function MeetingMember(props) {
 
     return (
         <Wrapper>
+            <CheckboxJoined type='checkbox' checked={joined} readOnly disabled />
             <Avatar src={`https://ui-avatars.com/api/?name=${enroller.first_name + " " + enroller.last_name}&background=0D8ABC&color=fff`} />
             <div>
                 <a href="#">
@@ -88,15 +95,19 @@ function MeetingMember(props) {
                     {`${enroller.first_name} ${enroller.last_name}`}
                 </MemberFullname>
             </div>
-            <IconWrapper>
-                <VisibleToggle toggler={
-                    <IconButton>
-                        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                    </IconButton>
-                }>
-                    {renderHiddenMenu()}
-                </VisibleToggle>
-            </IconWrapper>
+            {
+                props.isHost && (
+                    <IconWrapper>
+                        <VisibleToggle toggler={
+                            <IconButton>
+                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                            </IconButton>
+                        }>
+                            {renderHiddenMenu()}
+                        </VisibleToggle>
+                    </IconWrapper>
+                )
+            }
         </Wrapper>
     )
 }

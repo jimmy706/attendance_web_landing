@@ -35,6 +35,16 @@
             }
         }
     }
+    &--success {
+        background-color: $green;
+        color: #fff;
+        border: 1px solid $dark-green;
+        &:hover,
+        &:focus {
+            background-color: $dark-green;
+            border-color: $dark-green;
+        }
+    }
     &.disabled {
         opacity: 0.8;
         pointer-events: none;

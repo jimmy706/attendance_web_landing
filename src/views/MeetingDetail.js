@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header/Header';
 import { useParams } from 'react-router-dom';
-import { getMeetingDetail } from '../APIs/meetings';
+import { getMeetingDetail, joinMeeting, leaveMeeting } from '../APIs/meetings';
 import Tabs from '../components/Tabs/Tabs';
 import styled from 'styled-components';
 import ReactPlaceholder from 'react-placeholder/lib';
@@ -11,6 +11,7 @@ import MeetingDetailOverview from '../components/MeetingDetail/MeetingDetailOver
 import Container from '../components/Container/Container';
 import MeetingDetailMembers from '../components/MeetingDetail/MeetingDetailMembers';
 import MemberLoadingPlaceHolder from '../components/placeholders/MemberLoadingPlaceHolder';
+import MeetingDetailSetting from '../components/MeetingDetail/MeetingDetailSettings';
 
 const TabContainer = styled.div`
     margin-top: 20px;
@@ -42,6 +43,7 @@ const ACTIVE_TAB_VALUES = {
 function MeetingDetailPage() {
     const { meetingId } = useParams();
     const [loading, setLoading] = useState(true);
+    const [joinLoading, setJoinLoading] = useState(false);
     const [meetingDetail, setMeetingDetail] = useState(null);
     const [activeTab, setActiveTab] = useState(ACTIVE_TAB_VALUES.OVERVIEW);
 
@@ -87,6 +89,31 @@ function MeetingDetailPage() {
                 return !loading && meetingDetail ? (<MeetingDetailOverview meetingDetail={meetingDetail} />) : <ReactPlaceholder showLoadingAnimation={true} type='text' rows={6} />
             case ACTIVE_TAB_VALUES.MEMBERS:
                 return <MeetingDetailMembers meeting={meetingDetail} />
+            case ACTIVE_TAB_VALUES.SETTINGS:
+                return <MeetingDetailSetting meeting={meetingDetail} />
+        }
+    }
+
+
+    async function handleJoinBtnClick(e) {
+        setJoinLoading(true);
+        e.preventDefault();
+        const accessToken = JSON.parse(localStorage.getItem('access'));
+        const token = accessToken.data;
+        try {
+            if (!meetingDetail.is_registered) {
+                const result = await joinMeeting(token, meetingDetail.id);
+            }
+            else {
+                const result = await leaveMeeting(token, meetingDetail.id);
+            }
+            setMeetingDetail({ ...meetingDetail, is_registered: !meetingDetail.is_registered });
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            setJoinLoading(false);
         }
     }
 
@@ -117,6 +144,8 @@ function MeetingDetailPage() {
                                     </div>
                                     <CommonButton
                                         buttonType={meetingDetail.is_registered ? 'outlined' : 'default'}
+                                        loading={joinLoading}
+                                        onClick={handleJoinBtnClick}
                                     >
                                         {meetingDetail.is_registered ? 'Leave' : 'Join'}
                                     </CommonButton>
