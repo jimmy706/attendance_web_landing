@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CommonButton from '../../buttons/CommonButton/CommonButton';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
@@ -12,13 +12,17 @@ import { useHistory } from 'react-router';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-
+import mapboxgl from 'mapbox-gl';
+import { MAP_BOX_KEY } from '../../../config/keys';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 const Form = styled.form`
     width: 60%;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box
+   
 `
 
 function CreateMeetingForm() {
@@ -27,19 +31,48 @@ function CreateMeetingForm() {
     const [errorMessage, setErrorMessage] = useState('');
     const currentDatetime = new Date();
     const history = useHistory();
+    const [location, setLocation] = useState('');
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
     );
+
+    useEffect(() => {
+        mapboxgl.accessToken = MAP_BOX_KEY;
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            placeholder: 'Enter location',
+
+        });
+
+        geocoder.addTo('#location_geocoder');
+
+        // Get the geocoder results container.
+        const results = document.getElementById('location_result');
+
+        geocoder.on('loading', function (e) {
+            setLocation(e.query);
+        })
+
+        // Add geocoder result to container.
+        geocoder.on('result', function (e) {
+            setLocation(e.result.text);
+        });
+
+        // Clear results container when search is cleared.
+        geocoder.on('clear', function () {
+            results.innerText = '';
+        });
+    }, [])
+
     async function onSubmit(data) {
         setLoading(true);
         const description = (draftToHtml(convertToRaw(editorState.getCurrentContent())));
-        const body = { ...data, description }
+        const body = { ...data, description, location }
         const accessToken = JSON.parse(localStorage.getItem('access'));
         const token = accessToken.data;
         try {
             const result = await createNewMeeting(token, body);
             const newMeeting = result.data;
-            console.log(newMeeting)
             history.push(`/meeting/${newMeeting.id}`)
         }
         catch (err) {
@@ -112,8 +145,19 @@ function CreateMeetingForm() {
                     name='day'
                     id='day'
                     type='date'
+                    min={dayjs(currentDatetime).format("YYYY-MM-DD")}
                     defaultValue={dayjs(currentDatetime).format("YYYY-MM-DD")}
                 />
+            </div>
+
+            <div className='form-col'>
+                <label htmlFor='location_geocoder'>
+                    Location
+                </label>
+                <div>
+                    <div id='location_geocoder'></div>
+                    <pre id='location_result'></pre>
+                </div>
             </div>
 
             <div className='form-col'>

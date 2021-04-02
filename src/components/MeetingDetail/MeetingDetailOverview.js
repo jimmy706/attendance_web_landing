@@ -37,7 +37,8 @@ const CopyInput = styled.input`
 const DatetimeContainer = styled.div`
     margin-top: 20px;
     display: flex;
-    color: #586069;
+    font-weight: 600;
+    color: #111;
 `;
 
 const DescriptionContainer = styled.div`
@@ -47,10 +48,22 @@ const DescriptionContainer = styled.div`
     border-radius: 5px;
     padding: 15px;
     line-height: 1.4;
+    ul{
+        list-style-type: disc;
+        margin-left: 40px;
+    }
+`
+
+const LocationWrapper = styled.div`
+    display: flex;
+    align-items:center;
+    margin-top: 10px;
+    color: #586069;
+    font-size: .9rem;
 `
 
 function MeetingDetailOverview(props) {
-    const { start_time, end_time, day, attendance_key, description } = props.meetingDetail;
+    const { start_time, end_time, day, attendance_key, description, location } = props.meetingDetail;
 
     function handleCopyToClipboard() {
         const copyText = document.getElementById('share-meeting-key');
@@ -79,6 +92,17 @@ function MeetingDetailOverview(props) {
                     {`${dayjs(day).format("ddd/MM/YYYY")} ${start_time} - ${end_time}`}
                 </span>
             </DatetimeContainer>
+
+            {
+                location && (
+                    <LocationWrapper>
+                        <ion-icon name="location-outline"></ion-icon>
+                        <span style={{ marginLeft: '5px' }}>
+                            {location}
+                        </span>
+                    </LocationWrapper>
+                )
+            }
 
             <DescriptionContainer dangerouslySetInnerHTML={{ __html: description }} />
         </div>

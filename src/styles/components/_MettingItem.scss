@@ -60,15 +60,23 @@
             font-size: 1.2rem;
         }
     }
-    &__time {
+    &__time,
+    &__location {
         display: flex;
         align-items: center;
-        font-size: 0.8rem;
-        color: $dark;
+        font-size: 0.9rem;
+        color: #111;
+        font-weight: 600;
         ion-icon {
             font-size: 1.2rem;
             margin-right: 5px;
             color: $black;
         }
+    }
+    &__location {
+        margin-top: 10px;
+        color: #424242;
+        font-size: 0.8rem;
+        font-weight: 400;
     }
 }
