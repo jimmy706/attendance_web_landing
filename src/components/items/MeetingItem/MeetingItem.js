@@ -13,7 +13,8 @@ function MeetingItem(props) {
         day,
         creator,
         id,
-        is_registered
+        is_registered,
+        location
     } = props.data;
     const [loading, setLoading] = useState(false);
     const [isJoined, setIsJoined] = useState(is_registered);
@@ -82,6 +83,15 @@ function MeetingItem(props) {
                         {`${dayjs(day).format("ddd/MM/YYYY")}, ${start_time} - ${end_time}`}
                     </span>
                 </div>
+                {
+                    location && (
+                        <div className='meeting-item__location'>
+                            <ion-icon name="location-outline"></ion-icon>
+                            <span>
+                                {location}
+                            </span>
+                        </div>)
+                }
                 <div className='meeting-item__desc' dangerouslySetInnerHTML={{ __html: description }} />
             </div>
         </div>
