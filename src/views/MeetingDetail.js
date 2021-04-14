@@ -47,13 +47,15 @@ function MeetingDetailPage() {
     const [meetingDetail, setMeetingDetail] = useState(null);
     const [activeTab, setActiveTab] = useState(ACTIVE_TAB_VALUES.OVERVIEW);
 
+
     useEffect(() => {
         const accessToken = JSON.parse(localStorage.getItem('access'));
         if (accessToken) {
+            setActiveTab(ACTIVE_TAB_VALUES.OVERVIEW);
             const token = accessToken.data;
             fetchMeetingDetail(token);
         }
-    }, []);
+    }, [meetingId]);
 
     async function fetchMeetingDetail(token) {
         try {

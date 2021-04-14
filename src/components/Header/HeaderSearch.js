@@ -58,13 +58,17 @@ const SearchResultItem = styled.li`
 function HeaderSearch() {
     const [searchValue, setSearchValue] = useState("");
     const [meetings, setMeetings] = useState([]);
+    const [openResult, setOpenResult] = useState(false);
     async function handleSearch(e) {
         const value = e.target.value;
         setSearchValue(value);
         if (value !== '') {
             try {
                 const searchResult = await searchMeeting(value);
-                setMeetings(searchResult.data);
+                if(searchResult.data.length > 0) {
+                    setMeetings(searchResult.data);
+                    setOpenResult(true);
+                }
             }
             catch (err) {
                 console.log(err);
@@ -77,7 +81,7 @@ function HeaderSearch() {
 
     function renderMeeting() {
         return meetings.map(meeting => (
-            <SearchResultItem key={meeting.id}>
+            <SearchResultItem onClick={()=>setOpenResult(false)} key={meeting.id}>
                 <Link to={`/meeting/${meeting.id}`}>
                     {meeting.creator.account.username}/{meeting.title}
                 </Link>
@@ -91,7 +95,7 @@ function HeaderSearch() {
             <SearchIcon>
                 <ion-icon name="search-outline"></ion-icon>
             </SearchIcon>
-            {meetings.length > 0 && (
+            {openResult && (
                 <SearchResultList>
                     {renderMeeting()}
                 </SearchResultList>
